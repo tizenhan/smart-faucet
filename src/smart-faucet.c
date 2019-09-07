@@ -1,3 +1,4 @@
+#include <log.h>
 #include <tizen.h>
 #include <service_app.h>
 #include "smart-faucet.h"
