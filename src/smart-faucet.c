@@ -1,17 +1,47 @@
 #include <log.h>
 #include <tizen.h>
 #include <service_app.h>
-#include "smart-faucet.h"
+#include <Ecore.h>
+
+#include "resource.h"
+
+#define GPIO_JSN_SR04T_TRIG (20)
+#define GPIO_JSN_SR04T_ECHO (21)
+
+/* Timer */
+static Ecore_Timer *jsn_sr04t_timer = NULL;
+
+/* Value */
+static double distance = 0.0f;
+
+void _read_jsn_sr04t_cb(double value, void *data)
+{
+	distance = value;
+	_D("Distance : %f", distance);
+}
+
+Eina_Bool _jsn_sr04t_timer_cb(void *data)
+{
+	int ret = 0;
+
+	ret = resource_read_ultrasonic_jsn_sr04t(GPIO_JSN_SR04T_TRIG, GPIO_JSN_SR04T_ECHO, _read_jsn_sr04t_cb, NULL);
+	retv_if(ret < 0, ECORE_CALLBACK_CANCEL);
+
+	return ECORE_CALLBACK_RENEW;
+}
 
 bool service_app_create(void *data)
 {
-    // Todo: add your code here.
+    jsn_sr04t_timer = ecore_timer_add(1.0f, _jsn_sr04t_timer_cb, NULL);
+    retv_if(!jsn_sr04t_timer, false);
+
     return true;
 }
 
 void service_app_terminate(void *data)
 {
-    // Todo: add your code here.
+    ecore_timer_del(jsn_sr04t_timer);
+
     return;
 }
 
