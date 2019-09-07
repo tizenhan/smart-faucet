@@ -24,14 +24,22 @@
 #define GPIO_JSN_SR04T_TRIG (20)
 #define GPIO_JSN_SR04T_ECHO (21)
 
-#define GPIO_RELAY_0 (19)
-#define GPIO_RELAY_1 (26)
+#define GPIO_RELAY_0 (19) /* Cold Water */
+#define GPIO_RELAY_1 (26) /* Hot Water */
+
+#define HIGH_TEMPERATURE (30)
+#define LOW_TEMPERATURE (20)
 
 /* Timer */
+#define JSN_SR04T_DURATION (1.0f)
+#define MCU90615_DURATION (0.05f)
 static Ecore_Timer *jsn_sr04t_timer = NULL;
+static Ecore_Timer *mcu90615_timer = NULL;
 
 /* Value */
 static double distance = 0.0f;
+static int enable_cold = 1;
+static int enable_hot = 1;
 
 void _read_jsn_sr04t_cb(double value, void *data)
 {
@@ -54,10 +62,10 @@ void _read_jsn_sr04t_cb(double value, void *data)
 		out_count = 0;
 	} else {
 		if (out_count >= 5) {
-			ret = resource_write_relay(GPIO_RELAY_0, 1);
+			ret = resource_write_relay(GPIO_RELAY_0, enable_cold);
 			ret_if(ret < 0);
 
-			ret = resource_write_relay(GPIO_RELAY_1, 1);
+			ret = resource_write_relay(GPIO_RELAY_1, enable_hot);
 			ret_if(ret < 0);
 		}
 		out_count++;
@@ -75,10 +83,36 @@ Eina_Bool _jsn_sr04t_timer_cb(void *data)
 	return ECORE_CALLBACK_RENEW;
 }
 
+Eina_Bool _mcu90615_timer_cb(void *data)
+{
+	int ret = 0;
+	double target_object = 0.0f;
+	double target_ambient = 0.0f;
+
+	ret = resource_read_mcu90615(&target_object, &target_ambient);
+	retv_if(ret < 0, ECORE_CALLBACK_CANCEL);
+
+	if (target_object == 0.0f) return ECORE_CALLBACK_RENEW;
+	_D("Temperature : %f and %f", target_object, target_ambient);
+
+	if (target_object > HIGH_TEMPERATURE) {
+		enable_cold = 1;
+		enable_hot = 0;
+	} else if (target_object < LOW_TEMPERATURE) {
+		enable_cold = 0;
+		enable_hot = 1;
+	}
+
+	return ECORE_CALLBACK_RENEW;
+}
+
 bool service_app_create(void *data)
 {
-    jsn_sr04t_timer = ecore_timer_add(1.0f, _jsn_sr04t_timer_cb, NULL);
+    jsn_sr04t_timer = ecore_timer_add(JSN_SR04T_DURATION, _jsn_sr04t_timer_cb, NULL);
     retv_if(!jsn_sr04t_timer, false);
+
+    mcu90615_timer = ecore_timer_add(MCU90615_DURATION, _mcu90615_timer_cb, NULL);
+    retv_if(!mcu90615_timer, false);
 
     return true;
 }
@@ -86,6 +120,7 @@ bool service_app_create(void *data)
 void service_app_terminate(void *data)
 {
     ecore_timer_del(jsn_sr04t_timer);
+    ecore_timer_del(mcu90615_timer);
 
     return;
 }

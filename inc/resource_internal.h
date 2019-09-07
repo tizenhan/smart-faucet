@@ -26,6 +26,7 @@
 
 #include "resource/resource_ultrasonic_jsn_sr04t_internal.h"
 #include "resource/resource_relay_internal.h"
+#include "resource/resource_mcu90615_internal.h"
 
 #define PIN_MAX 40
 

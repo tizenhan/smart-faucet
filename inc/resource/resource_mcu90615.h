@@ -1,10 +1,5 @@
 /*
- * Copyright (c) 2017 Samsung Electronics Co., Ltd.
- *
- * Contact: Jin Yoon <jinny.yoon@samsung.com>
- *          Geunsun Lee <gs86.lee@samsung.com>
- *          Eunyoung Lee <ey928.lee@samsung.com>
- *          Junkyu Han <junkyu.han@samsung.com>
+ * Copyright (c) 2019 SINO TECH Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +14,9 @@
  * limitations under the License.
  */
 
-#ifndef __RCC_RESOURCE_H__
-#define __RCC_RESOURCE_H__
+#ifndef __RESOURCE_MCU90615_H__
+#define __RESOURCE_MCU90615_H__
 
-#include <peripheral_io.h>
+extern int resource_read_mcu90615(double *target_object, double *target_ambient);
 
-#include "resource_internal.h"
-#include "resource/resource_ultrasonic_jsn_sr04t.h"
-#include "resource/resource_relay.h"
-#include "resource/resource_mcu90615.h"
-
-#endif /* __RCC_RESOURCE_H__ */
+#endif /* __RESOURCE_MCU90615_H__ */
