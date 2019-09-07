@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2019 SINO TECH Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include <log.h>
 #include <tizen.h>
 #include <service_app.h>
@@ -8,6 +24,9 @@
 #define GPIO_JSN_SR04T_TRIG (20)
 #define GPIO_JSN_SR04T_ECHO (21)
 
+#define GPIO_RELAY_0 (19)
+#define GPIO_RELAY_1 (26)
+
 /* Timer */
 static Ecore_Timer *jsn_sr04t_timer = NULL;
 
@@ -16,8 +35,34 @@ static double distance = 0.0f;
 
 void _read_jsn_sr04t_cb(double value, void *data)
 {
+	/* Distance : 20 ~ 600 cm */
 	distance = value;
 	_D("Distance : %f", distance);
+
+	int ret = 0;
+	static int in_count = 0;
+	static int out_count = 0;
+	if (distance < 30.0f) {
+		if (in_count >= 5) {
+			ret = resource_write_relay(GPIO_RELAY_0, 0);
+			ret_if(ret < 0);
+
+			ret = resource_write_relay(GPIO_RELAY_1, 0);
+			ret_if(ret < 0);
+		}
+		in_count++;
+		out_count = 0;
+	} else {
+		if (out_count >= 5) {
+			ret = resource_write_relay(GPIO_RELAY_0, 1);
+			ret_if(ret < 0);
+
+			ret = resource_write_relay(GPIO_RELAY_1, 1);
+			ret_if(ret < 0);
+		}
+		out_count++;
+		in_count = 0;
+	}
 }
 
 Eina_Bool _jsn_sr04t_timer_cb(void *data)

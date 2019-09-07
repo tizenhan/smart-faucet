@@ -25,6 +25,7 @@
 #include <peripheral_io.h>
 
 #include "resource/resource_ultrasonic_jsn_sr04t_internal.h"
+#include "resource/resource_relay_internal.h"
 
 #define PIN_MAX 40
 
