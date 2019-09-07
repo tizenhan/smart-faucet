@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="5.0" package="org.example.smart-faucet" version="1.0.0">
+    <profile name="iot-headless"/>
+    <service-application appid="org.example.smart-faucet" exec="smart-faucet" multiple="false" nodisplay="true" on-boot="true" taskmanage="false" type="capp">
+        <label>smart-faucet</label>
+        <icon>smart-faucet.png</icon>
+        <background-category value="iot-communication"/>
+    </service-application>
+    <privileges>
+        <privilege>http://tizen.org/privilege/appdir.shareddata</privilege>
+        <privilege>http://tizen.org/privilege/network.get</privilege>
+        <privilege>http://tizen.org/privilege/internet</privilege>
+        <privilege>http://tizen.org/privilege/peripheralio</privilege>
+    </privileges>
+</manifest>
