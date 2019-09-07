@@ -48,7 +48,9 @@ int resource_write_relay(int pin_num, int write_value)
 	ret = peripheral_gpio_write(resource_get_info(pin_num)->sensor_h, write_value);
 	retv_if(ret < 0, -1);
 
+#ifdef DEBUG
 	_I("Relay Value : %s", write_value ? "ON":"OFF");
+#endif
 
 	return 0;
 }
