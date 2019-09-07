@@ -17,6 +17,10 @@
 #ifndef __RESOURCE_ULTRASONIC_JSN_SR04T_H__
 #define __RESOURCE_ULTRASONIC_JSN_SR04T_H__
 
+#if defined (__cplusplus)
+extern "C" {
+#endif
+
 /**
  * @brief Reads the value of gpio connected ultrasonic sensor(JSN_SR04T).
  * @param[in] trig_pin_num The number of the gpio pin connected to the trig of the ultrasonic sensor
@@ -27,5 +31,9 @@
  * @see If the gpio pin is not open, creates gpio handle before reading the value of gpio.
  */
 extern int resource_read_ultrasonic_jsn_sr04t(int trig_pin_num, int echo_pin_num, resource_read_cb cb, void *data);
+
+#if defined (__cplusplus)
+}
+#endif
 
 #endif /* __RESOURCE_ULTRASONIC_JSN_SR04T_H__ */

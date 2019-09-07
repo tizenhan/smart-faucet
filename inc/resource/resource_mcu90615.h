@@ -17,6 +17,14 @@
 #ifndef __RESOURCE_MCU90615_H__
 #define __RESOURCE_MCU90615_H__
 
+#if defined (__cplusplus)
+extern "C" {
+#endif
+
 extern int resource_read_mcu90615(double *target_object, double *target_ambient);
+
+#if defined (__cplusplus)
+}
+#endif
 
 #endif /* __RESOURCE_MCU90615_H__ */
