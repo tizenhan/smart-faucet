@@ -113,12 +113,14 @@ Eina_Bool _distance_timer_cb(void *data)
 Eina_Bool _temperature_timer_cb(void *data)
 {
 	int ret = 0;
+	double temp_object = 0.0f;
 	double target_ambient = 0.0f;
 
-	ret = resource_read_mcu90615(&target_object, &target_ambient);
+	ret = resource_read_mcu90615(&temp_object, &target_ambient);
 	retv_if(ret < 0, ECORE_CALLBACK_CANCEL);
 
-	if (target_object == 0.0f) return ECORE_CALLBACK_RENEW;
+	if (temp_object == 0.0f) return ECORE_CALLBACK_RENEW;
+	target_object = temp_object;
 	//_D("Temperature : %f and %f", target_object, target_ambient);
 
 	if (target_object > HIGH_TEMPERATURE) {
@@ -181,7 +183,7 @@ void NubisonCB_Invoke(char* rdata, char* api, char* uniqkey)
 
 	// 클라우드에서 조회 요청이 왔을때 관련된내용을 담아서 전달 함
     // 제어가 성공적으로 되었는지확인해서 값을 전달함//
-	cloudif->SendtoCloud(tmp, TYPE_STRING, api, uniqkey);
+	cloudif->SendtoCloud((char*)"ok", TYPE_STRING, api, uniqkey);
 }
 
 //3.Device 의 하드웨어 설정 하는 콜백
