@@ -27,9 +27,9 @@
 
 ***반영 완료, [[적외선 온도센서](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/213558/)]***
 
-***리뷰 중, [[초음파 거리센서](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/214042/)]***
+***반영 완료, [[초음파 거리센서](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/214042/)]***
 
-***리뷰 중, [[릴레이제어](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/214279/)]***
+***반영 완료, [[릴레이제어](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/214279/)]***
 
 
 
