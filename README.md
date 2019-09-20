@@ -17,7 +17,9 @@
 
 ## 타이젠 오픈소스에 컨트리뷰션한 내역
 ***반영 완료, [[적외선 온도센서](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/213558/)]***
+
 ***리뷰 중, [[초음파 거리센서](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/214042/)]***
+
 ***리뷰 중, [[릴레이제어](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/214279/)]***
 
 ## 파일 리스트  
