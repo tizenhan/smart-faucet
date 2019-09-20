@@ -5,7 +5,10 @@
 * 한은총 ( 기획, 디자인 ) 
 
 
+
 # ***Smart Faucet by I.o.T (스마트 수도꼭지)*** 
+
+
 
 ## 프로젝트 배경 혹은 목적
 * 반신욕을 위한 물을 원하는 시간,온도,양에 맞추어 미리 준비해 놓자.
@@ -16,11 +19,14 @@
 
 
 ## 타이젠 오픈소스에 컨트리뷰션한 내역
+
 ***반영 완료, [[적외선 온도센서](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/213558/)]***
 
 ***리뷰 중, [[초음파 거리센서](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/214042/)]***
 
 ***리뷰 중, [[릴레이제어](https://review.tizen.org/gerrit/#/c/apps/native/rcc/+/214279/)]***
+
+
 
 ## 파일 리스트  
  * inc/resource/resource_mcu90615_internal.h  	
@@ -49,8 +55,10 @@
 
 
 ## 보드
-  * RPI3 1 : [[이미지 분석 및 모션센서 연동](github.com/tizenhan/smart-camera)]
-  * RPI3 2 : [[온도,거리센서 연동](github.com/tizenhan/smart-faucet)]
+  * RPI3 1 : [[이미지 분석 및 모션센서 연동](https://github.com/tizenhan/smart-camera)]
+  * RPI3 2 : [[온도,거리센서 연동](https://github.com/tizenhan/smart-faucet)]
+
+
 
 ## 구현사항
   * GPIO / UART 사용
