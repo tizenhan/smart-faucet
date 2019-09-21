@@ -20,9 +20,13 @@
 /**
  * @brief Releases the gpio handle and changes the gpio pin state to the close(0).
  * @param[in] trig_pin_num The number of the gpio pin connected to the trig of the ultrasonic sensor
- * @param[in] echo_pin_num The number of the gpio pin connected to the echo of the ultrasonic sensor
  */
 extern void resource_close_ultrasonic_jsn_sr04t_trig(int trig_pin_num);
+
+/**
+ * @brief Releases the gpio handle and changes the gpio pin state to the close(0).
+ * @param[in] echo_pin_num The number of the gpio pin connected to the echo of the ultrasonic sensor
+ */
 extern void resource_close_ultrasonic_jsn_sr04t_echo(int echo_pin_num);
 
 #endif /* __RESOURCE_ULTRASONIC_JSN_SR04T_INTERNAL_H__ */
