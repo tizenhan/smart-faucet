@@ -21,7 +21,7 @@
 
 #define UART_BUS 0 /* RPI3 - Tizen */
 
-#define GPIO_UART 14
+#define GPIO_UART 15
 
 #define INPUT_SIZE 3
 #define OUTPUT_SIZE 9
